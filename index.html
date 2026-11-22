@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            text-align: center;
+        }
+        .calculatestyle{
+            background-color: pink;
+            border-radius: 10px;
+            border-width: 10px;
+            border: 3px black solid;
+        }
+        input{
+            margin-top: 1%;
+        }
+        div{
+            margin-top: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>គណនាថ្លៃផ្ញើរយានជំនិះ</h1>
+    <div class="calculatestyle">
+        <label for="">ជ្រើសរើស យានជំនិះ</label>
+        <select name="vehicle" id="vehicle">
+            <option value="car">រថយន្ត</option>
+            <option value="moto">ម៉ូតូ</option>
+        </select><br>
+        <label for="hourIn">ម៉ោងចូល</label>
+        <input type="time" name="" id="timein"><br>
+        <label for="hourOut">ម៉ោងចេញ</label>
+        <input type="time" name="" id="timeout"><br>
+        <div id="result">
+            <label for="">ថ្លៃផ្ញើរ រៀល</label>
+            <input type="number" placeholder="៛" id="riel" readonly><br>
+            <label for="">ថ្លៃផ្ញើរ ដុល្លា</label>
+            <input type="number" placeholder="$" id="dollar" readonly><br>
+        </div>
+        <div>
+            <button style="background-color: red; color: aliceblue;" type="button" onclick="calculate()">គណនា</button>
+        </div>
+    </div>
+    
+    <script>
+        function calculate() {
+            let vehicle = document.getElementById("vehicle").value;
+            let t1 = document.getElementById("timein").value;
+            let t2 = document.getElementById("timeout").value;
+
+            if (t1 == "" || t2 == "") {
+                alert("សូមបញ្ចូលម៉ោងចូល និង ម៉ោងចេញ!");
+                return
+            }
+
+            let start = t1.split(":");
+            let end = t2.split(":");
+
+            let timeIn = Number(start[0]) * 60 + Number(start[1]);
+            let timeOut = Number(end[0]) * 60 + Number(end[1]);
+
+            let total = timeOut - timeIn;
+
+            if (total <= 0) {
+                total += 1440;
+            }
+
+            let hours = total / 60;
+            let salary = 0;
+
+            if (vehicle == "car") {
+                if (hours <= 8) {
+                    salary = hours * 500;
+                }
+                else {
+                    salary = hours * 1000;
+                }
+            }
+            else if (vehicle == "moto") {
+                if (hours <= 8) {
+                    salary = hours * 200;
+                }
+                else {
+                    salary = hours * 300;
+                }
+            }
+
+            let dollar = salary / 4000;
+        document.getElementById("riel").value = salary;
+        document.getElementById("dollar").value = dollar.toFixed(2);
+
+
+
+        }
+    </script>
+    
+
+</body>
+</html>
